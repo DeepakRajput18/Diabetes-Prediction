@@ -82,6 +82,38 @@ else:
     print('The person is Diabetic')
 
 
+# Save the trained model to a file -
+
+import pickle
+fileName = 'trained_model.sav'
+pickle.dump(classifier, open(fileName, 'wb'))
+loaded_model = pickle.load(open('trained_model.sav', 'rb'))
+pickle.dump(classifier, open('trained_model.sav', 'wb'))
+
+
+# Making a PREDICTIVE Data -
+
+input_data = (7,147,76,0,0,39.4,0.257,43)
+
+# Changing the input data to numpy array -
+input_data_as_numpy_array = np.asarray(input_data)
+
+# Reshape the array as we are predicting for one instance -
+input_data_reshape = input_data_as_numpy_array.reshape(1,-1)
+
+# Standardize the input data -
+std_data = scaler.transform(input_data_reshape)
+print(std_data,'\n')
+
+prediction = classifier.predict(std_data)
+print(prediction, '\n')
+
+if (prediction[0] == 0) :
+    print('The person is non-diabetic')
+else:
+    print('The person is Diabetic')
+
+
 
 
 ''' How Everything Connects:
